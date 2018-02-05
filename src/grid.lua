@@ -3,6 +3,7 @@ local grid = {}
 local gridDebugFlag = true
 
 local grid_rng = love.math.newRandomGenerator(os.time())
+local losColour = { 0, 191, 0, 255}
 
 local _generateGrid = function(self)
     for x = 1, self.xSize do
@@ -39,8 +40,13 @@ local isWalkable = function(self, gridX, gridY)
     end
 end
 
-local setPoints = function(self, points)
+local setPoints = function(self, points, success)
     self.points = points
+    if success then
+        losColour = { 0, 191, 0, 255 }
+    else
+        losColour = { 191, 0, 0, 255 }
+    end
 end
 
 local update = function(self, dt)
@@ -58,7 +64,7 @@ local draw = function(self)
             end
         end
     end
-    love.graphics.setColor(191, 0, 0, 255)
+    love.graphics.setColor(losColour)
     for i = 1, #self.points do
         love.graphics.rectangle('fill', (self.points[i][1] - 1) * self.cellSize, (self.points[i][2] - 1) * self.cellSize, self.cellDrawSize, self.cellDrawSize)
     end

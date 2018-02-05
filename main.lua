@@ -15,7 +15,7 @@ function love.update(dt)
     local line, success = bresenham.line(startX, startY, mouseX, mouseY, function(x, y)
         return grid:isWalkable(x, y)
     end)
-    grid:setPoints(line)
+    grid:setPoints(line, success)
 end
 
 function love.draw()
