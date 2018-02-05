@@ -13,7 +13,7 @@ end
 function love.update(dt)
     mouseX, mouseY = grid:worldSpaceToGrid(love.mouse.getPosition())
     local line, success = bresenham.line(startX, startY, mouseX, mouseY, function(x, y)
-        return true
+        return grid:isWalkable(x, y)
     end)
     grid:setPoints(line)
 end

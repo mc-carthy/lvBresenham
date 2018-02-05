@@ -9,7 +9,7 @@ local _generateGrid = function(self)
         self[x] = {}
         for y = 1, self.ySize do
             self[x][y] = {}
-            -- self[x][y].walkable = true
+            self[x][y].walkable = true
         end
     end
 end
@@ -17,10 +17,10 @@ end
 local _populateGrid = function(self)
     for x = 1, self.xSize do
         for y = 1, self.ySize  do
-            -- local prob = grid_rng:random(100)
-            -- if prob >= 85 then
-            --     self[x][y].walkable = false
-            -- end
+            local prob = grid_rng:random(100)
+            if prob >= 85 then
+                self[x][y].walkable = false
+            end
         end
     end
 end
