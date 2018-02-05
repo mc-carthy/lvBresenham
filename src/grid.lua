@@ -39,6 +39,10 @@ local isWalkable = function(self, gridX, gridY)
     end
 end
 
+local setPoints = function(self, points)
+    self.points = points
+end
+
 local update = function(self, dt)
 end
 
@@ -54,6 +58,10 @@ local draw = function(self)
             end
         end
     end
+    love.graphics.setColor(191, 0, 0, 255)
+    for i = 1, #self.points do
+        love.graphics.rectangle('fill', (self.points[i][1] - 1) * self.cellSize, (self.points[i][2] - 1) * self.cellSize, self.cellDrawSize, self.cellDrawSize)
+    end
 end
 
 grid.create = function(xSize, ySize)
@@ -67,8 +75,12 @@ grid.create = function(xSize, ySize)
     inst.xSize = xSize or love.graphics.getWidth() / inst.cellSize * inst.worldScaleInScreens
     inst.ySize = ySize or love.graphics.getHeight() / inst.cellSize * inst.worldScaleInScreens
 
+    inst.points = {}
+
     _generateGrid(inst)
     _populateGrid(inst)
+
+    inst.setPoints = setPoints
 
     inst.worldSpaceToGrid = worldSpaceToGrid
     inst.isWalkable = isWalkable
